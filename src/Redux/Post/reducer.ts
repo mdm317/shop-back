@@ -18,10 +18,11 @@ const productReducer = (
       case types.GET_PRODUCT_LIST:
         return {
           ...state,
+          products : action.payload
         }
       default:
         return state
     }
   }
   
-  export default productReducer
+export default productReducer
