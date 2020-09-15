@@ -1,12 +1,12 @@
 import { combineReducers } from "redux"
-import products, {ProductState} from './Post/reducer';
+import product from './Product/_index';
 
 
-export interface RootState {
-    products:ProductState
-}
 
 const rootReducer = combineReducers({
-    products,
+    product,
 });
+
+export type RootState = ReturnType<typeof rootReducer>;
+
 export default rootReducer;
