@@ -1,24 +1,34 @@
-import React, { PureComponent } from 'react'
+import React from 'react';
+import styled from 'styled-components';
 
-interface onChange {
-
+export interface InputProp{
+    type?:string
+    value:string
+    onChange?:((e: React.ChangeEvent<HTMLInputElement>) => void) | undefined
+    required?:boolean
+    readOnly?:boolean
 }
-export default function(
-    id:string,
-    type:string, 
-    value:string,
-    required:boolean,
-    onChange:()=>void,
-    placeholder?:string,
-    ){
-    return (
-        <input    
-            placeholder={placeholder}
-            required={required}
-            value={value}
-            onChange={onChange}
-            type={type}>
+export default ({inputProp}:{inputProp:InputProp})=>{
+    const inputprops:InputProp={
+        type:inputProp.type?inputProp.type:'text',
+        value:inputProp.value,
+        onChange:inputProp.onChange?inputProp.onChange:undefined,
+        readOnly:inputProp.readOnly?inputProp.readOnly:false
+    }
+    
+    if(inputProp.required){//true  일떄만
+        inputprops.required =inputProp.required;
+    }else{//false null
+        if(inputProp.required === undefined){
+            inputprops.required =true;
+        }
+    }
+    
 
-        </input>
+
+    return(
+        <input
+            {...inputprops}
+        ></input>
     )
 }

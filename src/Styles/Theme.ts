@@ -4,7 +4,7 @@ const theme: DefaultTheme = {
   basicWidth: '320px',
 
     colors :{
-      main: '#1c1f25',
+      main: '#FAFAFA',
       secondary: '#fff',
     }
 };

@@ -1,7 +1,6 @@
 import * as types from "./types"
-import {Product} from '../../Model/db';
+import { Product, Review, Qna } from '../../Model/db';
 import {AxiosError} from 'axios';
-import { createAsyncAction } from "typesafe-actions";
 
 export interface GetProductsRequestAction {
   type: typeof types.GET_PRODUCTS_REQUEST
@@ -85,6 +84,97 @@ export const deleteProductFailure = (err:AxiosError)=>{
     payload:err
   }
 }
+
+export const addReviewRequest = ()=>{
+  return <const>{
+    type:types.ADD_REVIEW_REQUEST
+  }
+}
+export const addReviewSuccess = (review:Review)=>{
+  return <const>{
+    type:types.ADD_REVIEW_SUCCESS,
+    payload:review
+  }
+}
+export const addReviewFailure = (err:AxiosError)=>{
+  return <const>{
+    type:types.ADD_REVIEW_FAILURE,
+    payload:err
+  }
+}
+
+export const addQuestionRequest = ()=>{
+  return <const>{
+    type:types.ADD_QUESTION_REQUEST
+  }
+}
+export const addQuestionSuccess = (qna:Qna)=>{
+  return <const>{
+    type:types.ADD_QUESTION_SUCCESS,
+    payload:qna
+  }
+}
+export const addQuestionFailure = (err:AxiosError)=>{
+  return <const>{
+    type:types.ADD_QUESTION_FAILURE,
+    payload:err
+  }
+}
+export const addAnswerRequest = ()=>{
+  return <const>{
+    type:types.ADD_ANSWER_REQUEST
+  }
+}
+export const addAnswerSuccess = (qna:Qna)=>{
+  return <const>{
+    type:types.ADD_ANSWER_SUCCESS,
+    payload:qna
+  }
+}
+export const addAnswerFailure = (err:AxiosError)=>{
+  return <const>{
+    type:types.ADD_ANSWER_FAILURE,
+    payload:err
+  }
+}
+
+export const getPrdQuestionListRequest = ()=>{
+  return <const>{
+    type:types.GET_PRD_QUESTIONS_REQUEST
+  }
+}
+export const getPrdQuestionListSuccess = ({qnaList, productId}:{qnaList:Qna[], productId:string})=>{
+  return <const>{
+    type:types.GET_PRD_QUESTIONS_SUCCESS,
+    payload:{qnaList, productId}
+  }
+}
+export const getPrdQuestionListFailure = (err:AxiosError)=>{
+  return <const>{
+    type:types.GET_PRD_QUESTIONS_FAILURE,
+    payload:err
+  }
+}
+
+export const addImageRequest = ()=>{
+  return <const>{
+    type:types.ADD_IMAGE_REQUEST
+  }
+}
+export const addImageSuccess = (imagePath:{url:string,idx:string}[])=>{
+  return <const>{
+    type:types.ADD_IMAGE_SUCCESS,
+    payload:imagePath
+  }
+}
+export const addImageFailure = (err:AxiosError)=>{
+  return <const>{
+    type:types.ADD_IMAGE_FAILURE,
+    payload:err
+  }
+}
+
+
 export type GetProductsAction =
   | GetProductsRequestAction
   | GetProductsSuccessAction
@@ -106,9 +196,42 @@ export type DeleteProductAction =
 | ReturnType<typeof deleteProductSuccess>
 | ReturnType<typeof deleteProductFailure>
 
+export type AddReviewAction = 
+| ReturnType<typeof addReviewRequest>
+| ReturnType<typeof addReviewSuccess>
+| ReturnType<typeof addReviewFailure>
+
+export type AddQuetionAction = 
+| ReturnType<typeof addQuestionRequest>
+| ReturnType<typeof addQuestionSuccess>
+| ReturnType<typeof addQuestionFailure>
+
+export type AddAnswerAction = 
+| ReturnType<typeof addAnswerRequest>
+| ReturnType<typeof addAnswerSuccess>
+| ReturnType<typeof addAnswerFailure>
+
+export type GetPrdQuestionListAction = 
+| ReturnType<typeof getPrdQuestionListRequest>
+| ReturnType<typeof getPrdQuestionListSuccess>
+| ReturnType<typeof getPrdQuestionListFailure>
+
+export type AddImageAction = 
+| ReturnType<typeof addImageRequest>
+| ReturnType<typeof addImageSuccess>
+| ReturnType<typeof addImageFailure>
+
+
+
 type ProductAction = 
   GetProductsAction
   |AddProductAction
   |WillDeleteProductAction
-  |DeleteProductAction;
+  |DeleteProductAction
+  |AddReviewAction
+  |AddQuetionAction
+  |AddAnswerAction
+  |GetPrdQuestionListAction
+  |AddImageAction
+  
 export default ProductAction 
