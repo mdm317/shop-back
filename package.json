@@ -30,8 +30,7 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
-    "prestart": "npm run build",
-    "start": "set PORT=80 &&  pm2 start server.js",
+    "start": "set PORT=80 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
