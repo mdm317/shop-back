@@ -3,7 +3,8 @@ import { AxiosError } from 'axios';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '../index';
 import axios from 'axios';
-import { dbUrl } from '../../db';
+const dbUrl = process.env.REACT_APP_DBURL;
+
 export interface PopupState{
     data:{
         qna:any,

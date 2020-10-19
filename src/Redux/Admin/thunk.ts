@@ -1,8 +1,9 @@
 import { RootState } from '../index';
 import { AdminAction, getAllQuestionAction } from './reducer';
 import { ThunkAction } from 'redux-thunk';
-import { dbUrl } from '../../db';
 import axios from 'axios';
+
+const dbUrl = process.env.REACT_APP_DBURL;
 const getAllQuestionAPI = ()=>{
   return axios.get(dbUrl+'/qna/all',{withCredentials:true});
 }

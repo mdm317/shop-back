@@ -4,9 +4,9 @@ import { signUpAction, getUserAction, loginAction, checkIdAction, addCartAction,
 import { UserAction } from './types';
 import { User, Order } from '../../Model/db';
 import axios from 'axios';
-import { dbUrl } from '../../db';
 import { toast } from 'react-toastify';
 import { RouteComponentProps } from 'react-router-dom';
+const dbUrl = process.env.REACT_APP_DBURL;
 
 export interface LoginData{
   userId:string

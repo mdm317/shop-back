@@ -3,10 +3,10 @@ import { ThunkAction } from 'redux-thunk';
 import {RootState} from '../index'
 
 import axios from "axios";
-import { dbUrl } from "../../db";
 import { GetProductsAction, AddProductAction, addProductRequest, addProductSuccess, addProductFailure, getProductsRequest, getProductsSuccess, getProductsFailure, WillDeleteProductAction, willDeleteProductRequest, willDeleteProductSuccess, willDeleteProductFailure, deleteProductRequest, deleteProductSuccess, deleteProductFailure, DeleteProductAction, AddReviewAction, addReviewRequest, addReviewSuccess, addReviewFailure, AddQuetionAction, addQuestionRequest, addQuestionSuccess, addQuestionFailure, AddAnswerAction, addAnswerFailure, addAnswerRequest, addAnswerSuccess, GetPrdQuestionListAction, getPrdQuestionListRequest, getPrdQuestionListSuccess, getPrdQuestionListFailure, AddImageAction, addImageRequest, addImageSuccess, addImageFailure } from './action';
 import { Product } from '../../Model/db';
 import { toast } from 'react-toastify';
+const dbUrl = process.env.REACT_APP_DBURL;
 
 export interface AddProductData{
   name:string
@@ -18,6 +18,7 @@ export interface AddProductData{
 }
 
 function getProductsAPI(){
+  console.log(dbUrl+ '/product');
   return axios(dbUrl+ '/product',{withCredentials:true});
 }
 async function addProductsAPI(product:AddProductData){
