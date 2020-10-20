@@ -18,7 +18,6 @@ export interface AddProductData{
 }
 
 function getProductsAPI(){
-  console.log(dbUrl+ '/product');
   return axios(dbUrl+ '/product',{withCredentials:true});
 }
 async function addProductsAPI(product:AddProductData){
