@@ -82,7 +82,6 @@ export function logIn(param:LoginData, props:Props) :ThunkAction<void,RootState,
       dispatch(request(null)); 
       try {
         const response = await logInAPI(param);
-        console.log(response.data);
         
         dispatch(success(response.data));
         props.history.push('/');
