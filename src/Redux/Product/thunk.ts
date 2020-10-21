@@ -3,7 +3,7 @@ import { ThunkAction } from 'redux-thunk';
 import {RootState} from '../index'
 
 import axios from "axios";
-import { GetProductsAction, AddProductAction, addProductRequest, addProductSuccess, addProductFailure, getProductsRequest, getProductsSuccess, getProductsFailure, WillDeleteProductAction, willDeleteProductRequest, willDeleteProductSuccess, willDeleteProductFailure, deleteProductRequest, deleteProductSuccess, deleteProductFailure, DeleteProductAction, AddReviewAction, addReviewRequest, addReviewSuccess, addReviewFailure, AddQuetionAction, addQuestionRequest, addQuestionSuccess, addQuestionFailure, AddAnswerAction, addAnswerFailure, addAnswerRequest, addAnswerSuccess, GetPrdQuestionListAction, getPrdQuestionListRequest, getPrdQuestionListSuccess, getPrdQuestionListFailure, AddImageAction, addImageRequest, addImageSuccess, addImageFailure } from './action';
+import { GetProductsAction, AddProductAction, addProductRequest, addProductSuccess, addProductFailure, getProductsRequest, getProductsSuccess, getProductsFailure, WillDeleteProductAction, willDeleteProductRequest, willDeleteProductSuccess, willDeleteProductFailure, deleteProductRequest, deleteProductSuccess, deleteProductFailure, DeleteProductAction, AddReviewAction, addReviewRequest, addReviewSuccess, addReviewFailure, AddQuetionAction, addQuestionRequest, addQuestionSuccess, addQuestionFailure, AddAnswerAction, addAnswerFailure, addAnswerRequest, addAnswerSuccess, GetPrdQuestionListAction, getPrdQuestionListRequest, getPrdQuestionListSuccess, getPrdQuestionListFailure, AddImageAction, addImageRequest, addImageSuccess, addImageFailure, EditProductAction, editProductFailure, editProductRequest, editProductSuccess } from './action';
 import { Product } from '../../Model/db';
 import { toast } from 'react-toastify';
 const dbUrl = process.env.REACT_APP_DBURL;
@@ -192,6 +192,35 @@ export const addImage= (form:FormData,idx:string):ThunkAction<void,RootState, nu
     }catch (err) {
       console.log('error',err);
       dispatch(addImageFailure(err));
+    }
+  }
+}
+
+interface EditProductFrom{
+  id:string
+  name:string
+  price:number
+  stock:number
+}
+const editProductAPI = (product:EditProductFrom)=>{
+  return axios.post(
+    dbUrl+`/product/edit`,
+    {...product},
+    {withCredentials:true});
+}
+export const editProduct= (product:EditProductFrom):ThunkAction<void,RootState, null, EditProductAction>=>{
+  return async(dispatch)=>{
+    dispatch(editProductRequest());
+    try {
+      const response = await editProductAPI(product);
+      
+      dispatch(editProductSuccess(response.data));
+      toast.success('수정 성공');
+    }catch (err) {
+      console.log('error',err);
+      dispatch(editProductFailure(err));
+      toast.success('수정 실패');
+
     }
   }
 }

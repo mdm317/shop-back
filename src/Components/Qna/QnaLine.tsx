@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { Qna } from '../../Model/db';
 import { RootState } from '../../Redux/index';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { useState } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
+import { getAllQuestion } from '../../Redux/Admin/thunk';
 
 const QuestionItem = styled.div`
     display:flex;
@@ -33,15 +35,21 @@ const AnswerItem = styled.div`
     }
     
 `;
+interface props extends RouteComponentProps{
+    qna:Qna;
+}
 export default ({qna}:{qna:Qna})=>{
+    const dispatch = useDispatch();
+
     const [popupClosed, setpopupClosed] = useState(false);
     useEffect(() => {
             if(popupClosed){
-                window.location.reload(false);
+                dispatch(getAllQuestion());
+                // window.location.reload(false);
                 // setpopupClosed(false);
             }
     }, [popupClosed]);
-    //popup 감지
+    // popup 감지
     const [visibleAnswer, setvisibleAnswer] = useState(false);
     const user = useSelector((state:RootState) => state.user.user);
     const isAdmin = user?user.isAdmin:false;
@@ -59,6 +67,9 @@ export default ({qna}:{qna:Qna})=>{
 
     const clickContent = (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>)=>{
         setvisibleAnswer(!visibleAnswer);
+    }
+    const clickGoProduct = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
+
     }
     return(
         <>

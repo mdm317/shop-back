@@ -15,6 +15,7 @@ interface ErrorReason{
   addAnswer:AxiosError|null
   getPrdQuestions:AxiosError|null
   addImageErr:AxiosError|null
+  editProductErr:AxiosError|null
 }
 export interface ProductState {
   products: Product[]
@@ -34,7 +35,9 @@ const initialState: ProductState = {
       addQuestion:null,
       addAnswer:null,
       getPrdQuestions:null,
-      addImageErr:null
+      addImageErr:null,
+      editProductErr:null,
+
     },
 };
 
@@ -76,14 +79,16 @@ const productReducer = (
         return {
           ...state,
           products: [action.payload, ...state.products],
+          imagesPath:[]
         }
       case types.ADD_PRODUCT_FAILURE:
         return {
           ...state,
           error : {
             ...state.error,
-            addProduct:action.payload
-          }
+            addProduct:action.payload,
+          },
+          imagesPath:[],
         }
       case types.WILL_DELETE_PRODUCT_REQUEST:
         return {
@@ -189,7 +194,7 @@ const productReducer = (
         const proId =answer.product?.id;
         const preProducts = state.products;
         const newproducts = preProducts.map((pro)=>{
-          if(pro.id === pid){
+          if(pro.id === proId){
             let qnaIdx=0;
             pro.qnas.forEach((qna,i)=>{
               if(qna.id===answer.question?.id){
@@ -262,6 +267,34 @@ const productReducer = (
           error : {
             ...state.error,
             addImageErr:action.payload
+          }
+        }
+      case types.EDIT_PRODUCT_REQUEST:
+        return {
+          ...state,
+          error:{
+            ...state.error,
+            editProductErr:null
+          }
+        }
+      case types.EDIT_PRODUCT_SUCCESS:
+        const returnProduct = action.payload;
+        const editProductList = state.products.map(pro=>{
+          if(pro.id === returnProduct.id){
+            return returnProduct;
+          }
+          return pro;
+        })
+        return {
+          ...state,
+          products:editProductList
+        }
+      case types.EDIT_PRODUCT_FAILURE:
+        return {
+          ...state,
+          error : {
+            ...state.error,
+            editProductErr:action.payload
           }
         }
       default:

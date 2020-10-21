@@ -36,15 +36,24 @@ export default ({price,setpaymentPossible}:
     if(!user){
         return (<></>)
     }
+
     const cash = user.point;
     const remainCash = cash-price;
-    useEffect(() => {
-        if(remainCash<0){
-            setpaymentPossible(false);
-        }else{
-            setpaymentPossible(true);
-        }
-    }, [remainCash]);
+
+
+    if(remainCash<0){
+        setpaymentPossible(false);
+    }else{
+        setpaymentPossible(true);
+    }
+    // useEffect(() => {
+    //     console.log(remainCash);
+    //     if(remainCash<0){
+    //         setpaymentPossible(false);
+    //     }else{
+    //         setpaymentPossible(true);
+    //     }
+    // }, [remainCash]);
 
     return(
         <Container>

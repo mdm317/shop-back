@@ -77,13 +77,13 @@ export default (props:RouteComponentProps)=>{
     const [paymentPossible, setpaymentPossible] = useState(false);
     // setQuantityList(newQuantityList);
     //addressForm
-    const name = useInputStr2("1"); //초기화 해야함
-    const [zip, setzip] = useState("1");    //초기화 해야함
-    const [address, setaddress] = useState("1");    //초기화 해야함
-    const address2 = useInputStr2("1"); //초기화 해야함
-    const phone1 = useInputNumMaxLen("1",4);    //초기화 해야함
-    const phone2 = useInputNumMaxLen("1",4);    //초기화 해야함
-    const phone3 = useInputNumMaxLen("1",4);    //초기화 해야함
+    const name = useInputStr2("");
+    const [zip, setzip] = useState("");   
+    const [address, setaddress] = useState("");
+    const address2 = useInputStr2("");
+    const phone1 = useInputNumMaxLen("",4);   
+    const phone2 = useInputNumMaxLen("",4);   
+    const phone3 = useInputNumMaxLen("",4);   
     const delivermessage = useInputStr2("");
     const addressFormProp = {name,zip, setzip, address, setaddress,
         address2,
@@ -103,12 +103,21 @@ export default (props:RouteComponentProps)=>{
         settotalPrice(price);
     }, [products]);
     const onQuantity = (e:React.ChangeEvent<HTMLInputElement>)=>{
-        
+        let quantity = Number(e.target.value);
+        if(quantity<=0){
+            e.target.value="1";
+            toast.error('1개 이상 구매가능 합니다!');
+            quantity =1;
+        }
+
+        // if(e.target.value==="0"){
+        //   return;
+        // }
         const idx = Number(e.target.id);
         const elem = quantityList[idx];
         const changedElem:ProductQuantity = {
             ...elem,
-            quantity:Number(e.target.value)
+            quantity,
         }
         const newQuantityList= [...quantityList.slice(0,idx),changedElem,...quantityList.slice(idx+1)];
 

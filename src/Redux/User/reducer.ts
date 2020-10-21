@@ -26,6 +26,7 @@ interface UserState {
         chargeErr:AxiosError|null,
         getOrdersErr:AxiosError|null,
         addReivewErr:AxiosError|null,
+        emptyCartErr:AxiosError|null,
     }
     checkId:CheckIdData
     cart:Product[]
@@ -48,6 +49,7 @@ const initialState:UserState = {
         chargeErr:null,
         getOrdersErr:null,
         addReivewErr:null,
+        emptyCartErr:null,
     },
     checkId:{message:"",possible:false},
     cart:[],
@@ -147,7 +149,9 @@ const userReducer = createReducer<UserState,UserAction>(initialState,{
         }
     },
     ADD_REVIEW_FAILURE:(state, action)=>({...state,err:{...state.err,addReviewErr:action.payload}}),
-
+    EMPTY_CART_REQUEST:(state, action)=>({...state,err:{...state.err,emptyCartErr:null}}),
+    EMPTY_CART_SUCCESS:(state,action)=>({...state, cart:action.payload}),
+    EMPTY_CART_FAILURE:(state, action)=>({...state,err:{...state.err,emptyCartErr:action.payload}}),
 });
 
 //object map 이 더 보기가 좋은것 같음

@@ -129,7 +129,7 @@ const ProductDetail: React.SFC<RouteComponentProps<MatchParams>> = ({match})=>{
             <ProductWrapper>
             <ProductHeader>
                 <ProductPreview>
-                    <img width={400} height={400}src={product.productImage[0].url}></img>
+                    <img width={400} height={400}src={product.thumbnail}></img>
                 </ProductPreview>
                 <ProductBuy>
                     <Row>

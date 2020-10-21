@@ -27,6 +27,7 @@ const Container = styled.div`
 
 `;
 export default (props:RouteComponentProps)=>{
+    
     const [state, setstate] = useState("0");
     const clickHeader = (e:React.MouseEvent<HTMLDivElement, MouseEvent>)=>{
         const elem = e.target as HTMLElement;
@@ -42,7 +43,7 @@ export default (props:RouteComponentProps)=>{
             <Container>
                 {state==="1" && <OrderList/>}
                 {state==="2" &&  <ProductList match={props.match} history={props.history} location={props.location}/>}
-                {state==="3" &&  <QuestionList/>}
+                {state==="3" &&  <QuestionList match={props.match} history={props.history} location={props.location}/>}
             </Container>
         </Wrapper>
     )

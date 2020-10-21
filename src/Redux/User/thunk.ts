@@ -1,11 +1,12 @@
 import { ThunkAction } from 'redux-thunk';
 import {RootState} from '../index'
-import { signUpAction, getUserAction, loginAction, checkIdAction, addCartAction, deleteCartAction, logoutAction, editProfileAction, getProfileAction, addOrderAction, chargeCashAction, getOrdersAction } from './action';
+import { signUpAction, getUserAction, loginAction, checkIdAction, addCartAction, deleteCartAction, logoutAction, editProfileAction, getProfileAction, addOrderAction, chargeCashAction, getOrdersAction, emptyCartAction, addReviewAction } from './action';
 import { UserAction } from './types';
 import { User, Order } from '../../Model/db';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { RouteComponentProps } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 const dbUrl = process.env.REACT_APP_DBURL;
 
 export interface LoginData{
@@ -204,6 +205,7 @@ export function addOrder(param:addOrderParam,props:RouteComponentProps):ThunkAct
       dispatch(success(response.data));
       toast.success('주문 성공');
       props.history.push('/');
+      dispatch(emptyCart());
     } catch (e) {
       console.dir(e);
       if(e.response){
@@ -266,10 +268,27 @@ const addReviewAPI = (param:AddReviewParam)=>{
 }
 export function addReview(param:AddReviewParam):ThunkAction<void,RootState, null, UserAction>{
   return async (dispatch) => {
-    const { request, success, failure } = addOrderAction;
+    const { request, success, failure } = addReviewAction;
     dispatch(request(null)); 
     try {
       const response = await addReviewAPI(param);
+      dispatch(success(response.data));
+    } catch (e) {
+      dispatch(failure(e));
+    }
+  };
+}
+
+const emptyCartAPI = async()=>{
+ 
+  return  axios.post(dbUrl+'/basket/empty',{},{withCredentials:true});
+}
+export function emptyCart():ThunkAction<void,RootState, null, UserAction>{
+  return async (dispatch) => {
+    const { request, success, failure } = emptyCartAction;
+    dispatch(request(null)); 
+    try {
+      const response = await emptyCartAPI();
       dispatch(success(response.data));
     } catch (e) {
       dispatch(failure(e));

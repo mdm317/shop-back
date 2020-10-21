@@ -173,7 +173,23 @@ export const addImageFailure = (err:AxiosError)=>{
     payload:err
   }
 }
-
+export const editProductRequest = ()=>{
+  return <const>{
+    type:types.EDIT_PRODUCT_REQUEST
+  }
+}
+export const editProductSuccess = (product:Product)=>{
+  return <const>{
+    type:types.EDIT_PRODUCT_SUCCESS,
+    payload:product
+  }
+}
+export const editProductFailure = (err:AxiosError)=>{
+  return <const>{
+    type:types.EDIT_PRODUCT_FAILURE,
+    payload:err
+  }
+}
 
 export type GetProductsAction =
   | GetProductsRequestAction
@@ -221,6 +237,11 @@ export type AddImageAction =
 | ReturnType<typeof addImageSuccess>
 | ReturnType<typeof addImageFailure>
 
+export type EditProductAction = 
+| ReturnType<typeof editProductRequest>
+| ReturnType<typeof editProductSuccess>
+| ReturnType<typeof editProductFailure>
+
 
 
 type ProductAction = 
@@ -233,5 +254,6 @@ type ProductAction =
   |AddAnswerAction
   |GetPrdQuestionListAction
   |AddImageAction
+  |EditProductAction
   
 export default ProductAction 

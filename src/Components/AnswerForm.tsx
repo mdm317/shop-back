@@ -82,7 +82,6 @@ interface MatchParams {
     qnaId:string
 }
 const AnswerForm: React.SFC<RouteComponentProps<MatchParams>> = ({match})=>{
-    console.log('randering')
     const {params:{qnaId}} = match;
     const dispatch = useDispatch();
     const user = useSelector((state:RootState) => state.user.user);
@@ -107,13 +106,11 @@ const AnswerForm: React.SFC<RouteComponentProps<MatchParams>> = ({match})=>{
             qId:qnaId,
             productId:question.product.id
         }));
-        console.log(qerr);
 
         
         setisSubmit(true);
     }
     if(isSubmit){
-        console.log(qerr);
         
         if(qerr===null){
             return (

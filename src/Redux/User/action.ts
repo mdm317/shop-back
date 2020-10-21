@@ -89,3 +89,9 @@ export const addReviewAction = createAsyncAction(
     types.ADD_REVIEW_SUCCESS, 
     types.ADD_REVIEW_FAILURE
 )<null, Review,AxiosError>();
+
+export const emptyCartAction = createAsyncAction(
+    types.EMPTY_CART_REQUEST, 
+    types.EMPTY_CART_SUCCESS, 
+    types.EMPTY_CART_FAILURE
+)<null, [],AxiosError>();

@@ -31,7 +31,10 @@ const TopProductCard = styled.div`
     height:2em;
     padding-top:0.5em;
     margin-bottom:20px;
+
+    
 `;
+
 
 const Column = styled.div`
     text-align:center;
@@ -42,12 +45,18 @@ const OrderCard = styled.div`
 
 `;
 const ProductCard = styled.div`
-margin-bottom:1em;
+    margin-bottom:1em;
 
         display:grid;
     grid-template-columns: 100px 300px 100px 100px;
 
 `;
+const ProductCardColumn = styled.div`
+    display:flex;
+    justify-content:center;
+
+`;
+
 const ShipmentCard = styled.div`
     section{
         display:flex;
@@ -79,7 +88,7 @@ const ProductDescription = styled.div`
     
 `;
 const Image = styled.div`
-    width:60%;
+    width:100%;
 `;
 const Button = styled.button`
     height:1.5em;
@@ -129,16 +138,25 @@ export default ()=>{
                 </TopProductCard>
                 {order.products.map((product)=>(
                     <ProductCard  key={product.id}>
-                        <div>{order.orderNumber}</div>
-                        <ProductInfo>
-                            <Image><img width={150} height={150}src = {product.thumbnail}></img></Image>
-                            <ProductDescription>
-                                <Strong>{product.name}</Strong>
-                                <p>{product.description}</p>
-                            </ProductDescription>
-                        </ProductInfo>
-                        {/* <div><div>{product.price} 원</div><div>{product.count} 개</div></div>
-                        {!product.existReview &&<Button id={product.id} onClick={clickAddReviewBtn}>리뷰쓰기</Button>} */}
+                        <ProductCardColumn> 
+                            <div>{order.orderNumber}</div>
+                        </ProductCardColumn>
+                        <ProductCardColumn>
+                            <ProductInfo>
+                                <Image><img width={150} height={150}src = {product.thumbnail}></img></Image>
+                                <ProductDescription>
+                                    <Strong>{product.name}</Strong>
+                                    <p>{product.description}</p>
+                                </ProductDescription>
+                            </ProductInfo>
+                        </ProductCardColumn>
+                        <ProductCardColumn>
+                            <div><div>{product.price} 원</div><div>{`(${product.count})`} 개</div></div>
+                        </ProductCardColumn>
+                        <ProductCardColumn>  
+                            <div>구매완료</div>
+                        </ProductCardColumn>
+                      
                         
                     </ProductCard>
                 ))}

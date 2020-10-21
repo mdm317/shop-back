@@ -1,7 +1,7 @@
 import React,{useCallback, useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { addProduct, AddProductData, addImage } from '../Redux/Product/thunk';
+import { addProduct, AddProductData, addImage, editProduct } from '../Redux/Product/thunk';
 import { useInputNum, useInputStr, UseInputStr } from '../Hooks/useInput';
 import { Product } from '../Model/db';
 import { RouteComponentProps } from 'react-router-dom';
@@ -55,29 +55,6 @@ interface Props extends RouteComponentProps {
 
 export default function(props:Props) {
     const {product} = props;
-    const makeArr = useCallback(
-        (length) => {
-            const ar=[];
-            for(let i=0;i<length;++i){
-                ar.push({url:"", idx:""});
-            }
-            return ar;
-        },
-        [],
-    )
-    useEffect(() => {
-        if(product){
-            setName(product.name);
-            setPrice(product.price.toString());
-            setStock(product.stock.toString());
-            setDescriptopn(product.description);
-            setThumbnail(product.thumbnail?product.thumbnail:"");
-        }
-    }, [product]);
-    const imgList = useSelector((state:RootState) => state.product.imagesPath);
-    
-    const dispatch = useDispatch();
-    // const {value:name, onChange:onChangeName} = useInput<string>("");
     const [name, setName] = useState("");
     const onChangeName = (e:any)=>{
         setName(e.target.value);
@@ -85,8 +62,29 @@ export default function(props:Props) {
     const {value:price,setValue:setPrice,  onChange:onChangePrice} = useInputNum("");
     const {value:stock,setValue:setStock , onChange:onChangeStock} = useInputNum("");
     const {value:description,setValue:setDescriptopn,  onChange:onChangeDescription} = useInputStr("");
-    const {value:thumbnail, setValue:setThumbnail, onChange:onThumbnail} = useInputStr("");
-    const [imgUrls, setimgUrls] = useState<Array<{url:string,idx:string}>>([{url:"", idx:""}]);
+    // const {value:thumbnail, setValue:setThumbnail, onChange:onThumbnail} = useInputStr("");
+    // const [thumbnail, setthumbnail] = useState({url:"", idx:""});
+    const [imgUrls, setimgUrls] = useState<Array<{url:string,idx:string}>>([{url:"", idx:""},{url:"", idx:""}]);
+    const imgList = useSelector((state:RootState) => state.product.imagesPath);
+    useEffect(() => {
+        if(product){
+            setName(product.name);
+            setPrice(product.price.toString());
+            setStock(product.stock.toString());
+            setDescriptopn(product.description);
+        }
+    }, []);
+   
+    const onThumbnail = (e: React.ChangeEvent<HTMLInputElement>)=>{
+        if(e.target.files){
+            const image = e.target.files[0];
+            const formData = new FormData();
+            formData.append("image", image);
+            dispatch(addImage(formData,"0"));
+        }
+    }
+    const dispatch = useDispatch();
+    // const {value:name, onChange:onChangeName} = useInput<string>("");
 
     const addImgUrl = (e:React.MouseEvent<HTMLDivElement, MouseEvent>)=>{
         setimgUrls([...imgUrls, {url:"", idx:""}]);
@@ -108,9 +106,7 @@ export default function(props:Props) {
         if(e.target.files){
             const image = e.target.files[0];
             const formData = new FormData();
-            console.log(formData);
             formData.append("image", image);
-            console.log(formData);
             dispatch(addImage(formData,e.target.id));
         }
         // console.log();
@@ -130,20 +126,25 @@ export default function(props:Props) {
     const submitForm = async(e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         console.log(imgUrls);
-        const product:AddProductData = {
+        const productForm:AddProductData = {
             name,
             price:Number(price),
             stock:Number(stock),
             imgUrls,
             description,
-            thumbnail
         }
-        await dispatch(addProduct(product));
+        if(product){
+            await dispatch(editProduct({
+                id:product.id,
+                name,
+                price:Number(price),
+                stock:Number(stock),}))
+        }else{
+
+            await dispatch(addProduct(productForm));
+        }
         props.history.push('/');
     };
-    const clickAddImage = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
-
-    }
     return (
         <>
             <Container>
@@ -195,36 +196,42 @@ export default function(props:Props) {
                 ></input> 
                 </Column>
      
-
-              
-                {imgUrls.map((imgUrl,i)=>(
-                     <Column key={i}>
-                        <div>이미지 {`${i+1}번`}: </div>
+                {!product &&
+                <>
+                {imgUrls.map((imgUrl,i)=>{
+                    if(i==0){
+                        return ;
+                    }
+                    return (
+                    <Column key={i}>
+                        <div>이미지 {`${i}번`}: </div>
                         <input 
-                        multiple 
                         type="file"
-                        
-                     id={i.toString()}
-                    //  value={imgUrl.url}
-                     onChange={onChangeUrl}
-                     placeholder={`Enter imageUrl ${i}`}
-                     required={true}
+                        id={(i).toString()}
+                        //  value={imgUrl.url}
+                        onChange={onChangeUrl}
+                        placeholder={`Enter imageUrl ${i}`}
+                        required={true}
+                        accept="image/*"
                     ></input>
-                    {i==0 && <p onClick={addImgUrl}>➕</p>}
+                    {i==1 && <p onClick={addImgUrl}>➕</p>}
                  </Column>
-                ))}
+                )})}
   
                 <Column>
                 <div>썸네일 : </div>
 
                    <input
+                    type="file"
                     id='thumnail'
-                    value={thumbnail}
                     onChange= {onThumbnail}
                     placeholder='Enter thumnail'
                     required={false}
+                    accept="image/*"
                 ></input>
                   </Column>
+                </>
+                }
                 <button>submit</button> 
                 </div>
                   </form>

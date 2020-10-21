@@ -30,7 +30,7 @@ export default (props:RouteComponentProps)=>{
             {modalVisible && <ChangeProductForm product={product} setmodalVisible={setmodalVisible} match={props.match} history={props.history} location={props.location}/>}
             <Container>
                 {productList.map(product=>(
-                    <ProductListElem 
+                    <ProductListElem key ={product.id}
                     product={product}
                     setproduct={setproduct}
                     setmodalVisible={setmodalVisible}
