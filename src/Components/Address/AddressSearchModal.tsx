@@ -112,7 +112,7 @@ export default ({setmodalVisible,setAddressValueToInput}:
         } */
         let list = [];
         let meta = response.data.meta;
-        if(meta.total_count==0){
+        if(meta.total_count===0){
             return toast.error('검색결과가 없습니다. 다른 검색어로 검색해주세요')
         }
         if(meta.total_count>50){

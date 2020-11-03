@@ -67,7 +67,7 @@ export const useInputNumMaxLen =  (defaultValue:string,maxlen:number)=>{
 
         }
         const isNum = Number(value);
-        if(isNum){
+        if(isNum>=0){
             setValue(value);
         }else{
             toast.error('enter only number ');

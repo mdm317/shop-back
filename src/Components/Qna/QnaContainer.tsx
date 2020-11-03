@@ -108,6 +108,7 @@ export default ({productId, qnaList}:{productId:string, qnaList:Qna[]})=>{//prop
                         <QnaLine
                             key={qna.id}
                             qna={qna}
+                            pid={productId}
                         />
                     )   
                     //작성자 답변상태 필요 qna 수정 해야함

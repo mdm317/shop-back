@@ -8,6 +8,10 @@ interface UserAndCart  {
     user:User
     cart:Product[]
 }
+interface ReturnOrderSuccess{
+    order:Order
+    remainCash:number
+}
 export interface CheckIdData  {
     message:string
     possible:boolean
@@ -70,7 +74,7 @@ export const addOrderAction = createAsyncAction(
     types.ADD_ORDER_REQUEST, 
     types.ADD_ORDER_SUCCESS, 
     types.ADD_ORDER_FAILURE
-)<null, Order,AxiosError>();
+)<null, ReturnOrderSuccess,AxiosError>();
 
 export const chargeCashAction = createAsyncAction(
     types.CHARGE_CASH_REQUEST, 

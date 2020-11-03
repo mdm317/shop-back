@@ -28,7 +28,7 @@ const Container = styled.div`
 `;
 export default (props:RouteComponentProps)=>{
     
-    const [state, setstate] = useState("0");
+    const [state, setstate] = useState("1");
     const clickHeader = (e:React.MouseEvent<HTMLDivElement, MouseEvent>)=>{
         const elem = e.target as HTMLElement;
         setstate(elem.id);

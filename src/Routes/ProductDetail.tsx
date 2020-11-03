@@ -142,9 +142,6 @@ const ProductDetail: React.SFC<RouteComponentProps<MatchParams>> = ({match})=>{
                         <Price>{product.price} 원</Price>
                     </Row>
                     <Row>
-                        <BuyButton>구매하기</BuyButton>
-                    </Row>
-                    <Row>
                         <AddCartBtn onClick={clickAddCart}>장바구니</AddCartBtn>
                     </Row>
                     <Row>

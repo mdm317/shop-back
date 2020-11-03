@@ -103,14 +103,32 @@ const userReducer = createReducer<UserState,UserAction>(initialState,{
     },
     DELETE_CART_FAILURE: (state, action)=>({...state,err:{...state.err,deleteCartErr:action.payload}}),
     ADD_ORDER_REQUEST:(state) =>({...state, err:{...state.err, addOrderErr:null}}),
-    ADD_ORDER_SUCCESS:(state,action) =>({
-        ...state, 
-        orders:[
-            action.payload,
-            ...state.orders
-  
-        ]
-    }),
+    ADD_ORDER_SUCCESS:(state,action) =>{
+        if(state.user){
+            return {
+                ...state, 
+                orders:[
+                    action.payload.order,
+                    ...state.orders
+        
+                ],
+                user:{
+                    ...state.user,
+                    point:action.payload.remainCash
+                }
+            }
+        }else{
+            return {
+                ...state, 
+                orders:[
+                    action.payload.order,
+                    ...state.orders
+        
+                ]
+            }
+        }
+        
+    },
     ADD_ORDER_FAILURE:(state, action)=>({...state,err:{...state.err,addOrderErr:action.payload}}),
     CHARGE_CASH_REQUEST:(state, action)=>({...state,err:{...state.err,chargeErr:action.payload}}),
     CHARGE_CASH_SUCCESS:(state,action) =>{

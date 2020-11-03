@@ -21,8 +21,13 @@ import ChargeCash from './Routes/ChargeCash';
 import OrderList from './Routes/OrderList';
 import AddReviewForm from './Components/Modal/AddReviewForm';
 import AdminPage from './Routes/AdminPage';
+import { useSelector } from 'react-redux';
+import { RootState } from './Redux/index';
+import RouterIf from './Components/RouterIf';
 
 function App() {
+  const user = useSelector((state:RootState) => state.user.user);
+
   return (
     <ThemeProvider theme={theme}>
     <>
@@ -30,17 +35,24 @@ function App() {
       <BrowserRouter>
       <Layout>
         <Switch>
+          <RouterIf path="/orderSheet" component={OrderSheet} isAuth={user?true:false}/>
+          <RouterIf path="/chargeCash" component={ChargeCash} isAuth={user?true:false}/>
+          <RouterIf path="/orderList" component={OrderList} isAuth={user?true:false}/>
+          {/* <Route path="/orderSheet" component={OrderSheet} />
+          <Route path="/chargeCash" component={ChargeCash} />
+          <Route path="/orderList" component={OrderList} /> */}
+          <RouterIf path="/addproduct" component={AddProduct} isAuth={user?.isAdmin?true:false}/>
+          <RouterIf path="/answerform/:qnaId" component={AnswerForm} isAuth={user?.isAdmin?true:false}/>
+          <RouterIf path="/adminPage" component={AdminPage} isAuth={user?.isAdmin?true:false}/>
+          
+          {/* <Route path="/addproduct" component={AddProduct} />
+          <Route path="/answerform/:qnaId" component={AnswerForm} />
+          <Route path="/adminPage" component={AdminPage} /> */}
           <Route path="/" exact component={Home} />
-          <Route path="/addproduct" component={AddProduct} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/productDetail/:productIndex" component={ProductDetail} />
           <Route path="/qnaform/:productId" component={QnaForm} />
-          <Route path="/answerform/:qnaId" component={AnswerForm} />
-          <Route path="/orderSheet" component={OrderSheet} />
-          <Route path="/chargeCash" component={ChargeCash} />
-          <Route path="/orderList" component={OrderList} />
-          <Route path="/adminPage" component={AdminPage} />
           <Redirect path="*" to="/" />
         </Switch>
       </Layout>

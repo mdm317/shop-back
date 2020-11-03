@@ -55,6 +55,7 @@ export default (props:Props)=>{
                             <ButtonBox><Button id={qna.product.id} onClick={clickGoProduct}>제품보기</Button></ButtonBox>
                             <QnaLine
                                 qna={qna}
+                                pid={qna.product.id}
                             />
                         </QnaBox>
                     )
@@ -63,6 +64,7 @@ export default (props:Props)=>{
                 <QnaLine
                     key={qna.id}
                     qna={qna}
+                    pid="0"
                 />
                 )
                 

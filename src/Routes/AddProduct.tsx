@@ -125,7 +125,6 @@ export default function(props:Props) {
 
     const submitForm = async(e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        console.log(imgUrls);
         const productForm:AddProductData = {
             name,
             price:Number(price),

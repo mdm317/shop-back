@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { getAllQuestion } from '../../Redux/Admin/thunk';
+import { getPrdQueList } from '../../Redux/Product/thunk';
 
 const QuestionItem = styled.div`
     display:flex;
@@ -38,13 +39,13 @@ const AnswerItem = styled.div`
 interface props extends RouteComponentProps{
     qna:Qna;
 }
-export default ({qna}:{qna:Qna})=>{
+export default ({qna,pid}:{qna:Qna,pid:string})=>{
     const dispatch = useDispatch();
 
     const [popupClosed, setpopupClosed] = useState(false);
     useEffect(() => {
             if(popupClosed){
-                dispatch(getAllQuestion());
+                dispatch(getPrdQueList(pid));
                 // window.location.reload(false);
                 // setpopupClosed(false);
             }
