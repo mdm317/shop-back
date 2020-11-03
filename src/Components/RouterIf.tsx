@@ -14,7 +14,7 @@ export default ({component:Component, isAuth,path}:
         render={
             props=>{
                 if(isAuth){
-                    return <Component/>
+                    return <Component {...props}/>
                 }else{
                     return <ForbiddenPage/>
                 }

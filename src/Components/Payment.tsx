@@ -34,7 +34,7 @@ export default ({price,setpaymentPossible}:
 
     
     if(!user){
-        return (<></>)
+        return null;
     }
 
     const cash = user.point;
