@@ -57,7 +57,7 @@ export default ({qna,pid}:{qna:Qna,pid:string})=>{
     let newUserId = qna.user.userId.slice(0,4);
     newUserId += "****";
     const clickAddAnswer = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
-        const popup = window.open(`/answerform/${qna.id}`,"PopupWin","width=500,height=600");
+        const popup = window.open(`/answerform/${qna.id}`,"PopupWin","width=500,height=650");
         const interval = setInterval(()=>{
             if(popup?.closed){
                 setpopupClosed(true);
