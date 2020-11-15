@@ -11,6 +11,7 @@ import { useInputNum, useInputStr } from "../Hooks/useInput";
 import { Product } from "../Model/db";
 import { RouteComponentProps } from "react-router-dom";
 import { RootState } from "../Redux/index";
+import { toast } from "react-toastify";
 
 const Container = styled.div`
   margin-top: 10vh;
@@ -134,6 +135,15 @@ export default function AddProduct(props: Props) {
 
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!product) {
+      for (let i = 1; i < imgUrls.length; ++i) {
+        if (imgUrls[i].url === "") {
+          toast.error("잠시후에 시도해주세요");
+          return;
+        }
+      }
+    }
+
     const productForm: AddProductData = {
       name,
       price: Number(price),

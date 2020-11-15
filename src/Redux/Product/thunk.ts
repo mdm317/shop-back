@@ -46,6 +46,13 @@ import {
   editProductSuccess,
 } from "./action";
 import { toast } from "react-toastify";
+import { getProductDetailFailure } from "./action";
+import { BACK_URL } from "../../Model/db";
+import {
+  GetProductDetailAction,
+  getProductDetailRequest,
+  getProductDetailSuccess,
+} from "./action";
 const dbUrl = process.env.REACT_APP_DBURL;
 
 export interface AddProductData {
@@ -300,6 +307,24 @@ export const editProduct = (
       console.log("error", err);
       dispatch(editProductFailure(err));
       toast.success("수정 실패");
+    }
+  };
+};
+const getProductDetailAPI = (productIndex: string) => {
+  return axios.get(BACK_URL + `/product/detail?productId=${productIndex}`);
+};
+export const getProductDetail = (
+  productIndex: string
+): ThunkAction<void, RootState, null, GetProductDetailAction> => {
+  return async (dispatch) => {
+    dispatch(getProductDetailRequest());
+    try {
+      const response = await getProductDetailAPI(productIndex);
+
+      dispatch(getProductDetailSuccess(response.data));
+    } catch (err) {
+      console.log("error", err);
+      dispatch(getProductDetailFailure(err));
     }
   };
 };

@@ -81,8 +81,8 @@ export default function QnaContainer({
           setpopupClosed(true);
           clearInterval(interval);
         }
-      }, 2000);
-      //질문을 작성하는 팝업을 열고 닫혔는지를 2초마다 검사해서
+      }, 1000);
+      //질문을 작성하는 팝업을 열고 닫혔는지를 1초마다 검사해서
       //닫혔으면 다시 질문을 가져와서 화면을 다시 렌더링함
     }
   };
@@ -104,9 +104,14 @@ export default function QnaContainer({
           if (qna.question) {
             return;
           }
-          return <QnaLine key={qna.id} qna={qna} pid={productId} />;
-          //작성자 답변상태 필요 qna 수정 해야함
-          //현재 db참고
+          return (
+            <QnaLine
+              page="productDeatail"
+              key={qna.id}
+              qna={qna}
+              pid={productId}
+            />
+          );
         })}
       </QnaList>
     </QnaBox>

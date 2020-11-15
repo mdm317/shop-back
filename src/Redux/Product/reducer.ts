@@ -2,6 +2,11 @@ import * as types from "./types";
 import { Product } from "../../Model/db";
 import GetProductsAction from "./action";
 import { AxiosError } from "axios";
+import { GET_PRODUCT_DETAIL_FAILURE } from "./types";
+import {
+  GET_PRODUCT_DETAIL_REQUEST,
+  GET_PRODUCT_DETAIL_SUCCESS,
+} from "./types";
 
 interface ErrorReason {
   get: AxiosError | null;
@@ -14,16 +19,19 @@ interface ErrorReason {
   getPrdQuestions: AxiosError | null;
   addImageErr: AxiosError | null;
   editProductErr: AxiosError | null;
+  getProductDetail: AxiosError | null;
 }
 export interface ProductState {
   products: Product[];
   error: ErrorReason;
+  productDetail: Product | null;
   imagesPath: { url: string; idx: string }[];
 }
 
 const initialState: ProductState = {
   products: [],
   imagesPath: [],
+  productDetail: null,
   error: {
     get: null,
     addProduct: null,
@@ -35,6 +43,7 @@ const initialState: ProductState = {
     getPrdQuestions: null,
     addImageErr: null,
     editProductErr: null,
+    getProductDetail: null,
   },
 };
 
@@ -296,6 +305,27 @@ const productReducer = (
         error: {
           ...state.error,
           editProductErr: action.payload,
+        },
+      };
+    case types.GET_PRODUCT_DETAIL_REQUEST:
+      return {
+        ...state,
+        error: {
+          ...state.error,
+          getProductDetail: null,
+        },
+      };
+    case types.GET_PRODUCT_DETAIL_SUCCESS:
+      return {
+        ...state,
+        productDetail: action.payload,
+      };
+    case types.GET_PRODUCT_DETAIL_FAILURE:
+      return {
+        ...state,
+        error: {
+          ...state.error,
+          getProductDetail: action.payload,
         },
       };
     default:

@@ -45,11 +45,11 @@ export default function QuestionList(props: Props) {
                   제품보기
                 </Button>
               </ButtonBox>
-              <QnaLine qna={qna} pid={qna.product.id} />
+              <QnaLine page="admin" qna={qna} pid={qna.product.id} />
             </QnaBox>
           );
         }
-        return <QnaLine key={qna.id} qna={qna} pid="0" />;
+        return <QnaLine page="admin" key={qna.id} qna={qna} pid="0" />;
       })}
     </Container>
   );

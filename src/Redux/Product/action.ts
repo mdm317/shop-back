@@ -201,7 +201,23 @@ export const editProductFailure = (err: AxiosError) => {
     payload: err,
   };
 };
-
+export const getProductDetailRequest = () => {
+  return <const>{
+    type: types.GET_PRODUCT_DETAIL_REQUEST,
+  };
+};
+export const getProductDetailSuccess = (product: Product) => {
+  return <const>{
+    type: types.GET_PRODUCT_DETAIL_SUCCESS,
+    payload: product,
+  };
+};
+export const getProductDetailFailure = (err: AxiosError) => {
+  return <const>{
+    type: types.GET_PRODUCT_DETAIL_FAILURE,
+    payload: err,
+  };
+};
 export type GetProductsAction =
   | GetProductsRequestAction
   | GetProductsSuccessAction
@@ -252,6 +268,11 @@ export type EditProductAction =
   | ReturnType<typeof editProductSuccess>
   | ReturnType<typeof editProductFailure>;
 
+export type GetProductDetailAction =
+  | ReturnType<typeof getProductDetailRequest>
+  | ReturnType<typeof getProductDetailSuccess>
+  | ReturnType<typeof getProductDetailFailure>;
+
 type ProductAction =
   | GetProductsAction
   | AddProductAction
@@ -262,6 +283,7 @@ type ProductAction =
   | AddAnswerAction
   | GetPrdQuestionListAction
   | AddImageAction
-  | EditProductAction;
+  | EditProductAction
+  | GetProductDetailAction;
 
 export default ProductAction;

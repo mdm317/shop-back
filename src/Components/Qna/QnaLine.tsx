@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { getPrdQueList } from "../../Redux/Product/thunk";
+import { getPrdQueList, getProductDetail } from "../../Redux/Product/thunk";
+import { getAllQuestion } from "../../Redux/Admin/thunk";
 
 const QuestionItem = styled.div`
   display: flex;
@@ -35,13 +36,25 @@ const AnswerItem = styled.div`
   }
 `;
 
-export default function QnaLine({ qna, pid }: { qna: Qna; pid: string }) {
+export default function QnaLine({
+  page,
+  qna,
+  pid,
+}: {
+  page: string;
+  qna: Qna;
+  pid: string;
+}) {
   const dispatch = useDispatch();
 
   const [popupClosed, setpopupClosed] = useState(false);
   useEffect(() => {
     if (popupClosed) {
-      dispatch(getPrdQueList(pid));
+      if (page === "admin") {
+        dispatch(getAllQuestion());
+      } else {
+        dispatch(getProductDetail(pid));
+      }
     }
   }, [popupClosed]);
   // popup 감지
@@ -61,9 +74,9 @@ export default function QnaLine({ qna, pid }: { qna: Qna; pid: string }) {
         setpopupClosed(true);
         clearInterval(interval);
       }
-    }, 2000);
+    }, 1000);
   }; //admin 계정일경우
-  //답변을 작성하는 팝업을 열고 닫혔는지를 2초마다 검사해서
+  //답변을 작성하는 팝업을 열고 닫혔는지를 1초마다 검사해서
   //닫혔으면 다시 질문을 가져와서 화면을 다시 렌더링함
 
   const clickContent = () => {

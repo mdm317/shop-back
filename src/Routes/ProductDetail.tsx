@@ -12,6 +12,7 @@ import axios from "axios";
 import { BACK_URL, Product } from "../Model/db";
 import ServerError from "./ServerError";
 import { toast } from "react-toastify";
+import { getProductDetail } from "../Redux/Product/thunk";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -72,32 +73,21 @@ interface MatchParams {
 }
 
 function ProductDetail({ match }: { match: match<MatchParams> }) {
+  const product = useSelector(
+    (state: RootState) => state.product.productDetail
+  );
   const { productIndex } = match.params;
-  const [product, setproduct] = useState<Product | null>(null);
-  const [err, seterr] = useState(0);
   const user = useSelector((state: RootState) => state.user.user);
   const [popupClosed, setpopupClosed] = useState(false);
 
   useEffect(() => {
     if (!popupClosed) {
-      (async function () {
-        try {
-          const response = await axios.get(
-            BACK_URL + `/product/detail?productId=${productIndex}`
-          );
-          setproduct(response.data);
-        } catch (error) {
-          seterr(1); //서버 에러시 serverError 페이지를 렌더링함
-        }
-      })();
+      dispatch(getProductDetail(productIndex));
     }
   }, [popupClosed]);
   const dispatch = useDispatch();
   if (!product) {
     return <div></div>;
-  }
-  if (err) {
-    return <ServerError />;
   }
 
   const clickAddCart = () => {

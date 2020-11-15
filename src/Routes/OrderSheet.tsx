@@ -68,6 +68,8 @@ export default function OrderSheet(props: RouteComponentProps) {
   const products = useSelector((state: RootState) => state.user.cart);
 
   const [quantityList, setQuantityList] = useState<ProductQuantity[]>([]);
+  //제품의 수량과 id를 같이 묶어두는 방식으로 보관하기 위해 따로
+  // 변수를 만듬
   const [totalPrice, settotalPrice] = useState(0);
   const [paymentPossible, setpaymentPossible] = useState(false);
   // setQuantityList(newQuantityList);
@@ -147,6 +149,7 @@ export default function OrderSheet(props: RouteComponentProps) {
       id: item.productId,
       count: item.quantity,
     }));
+    //제품의 id와 수량을 객체에 따로 보관해서 넘겨줌
     const phone = phone1.value + "-" + phone2.value + "-" + phone3.value;
     dispatch(
       addOrder(
