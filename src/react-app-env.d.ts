@@ -1,3 +1,3 @@
 interface Window {
-    daum: any;
+  daum: any;
 }

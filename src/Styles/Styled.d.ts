@@ -1,11 +1,11 @@
-import 'styled-components';
+import "styled-components";
 
-declare module 'styled-components' {
+declare module "styled-components" {
   export interface DefaultTheme {
     basicWidth: string;
     colors: {
-      main: string
-      secondary: string
-    }
+      main: string;
+      secondary: string;
+    };
   }
 }

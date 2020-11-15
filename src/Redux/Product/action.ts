@@ -1,259 +1,267 @@
-import * as types from "./types"
-import { Product, Review, Qna } from '../../Model/db';
-import {AxiosError} from 'axios';
+import * as types from "./types";
+import { Product, Review, Qna } from "../../Model/db";
+import { AxiosError } from "axios";
 
+// 엑션의 타입을 인터페이스로 정의하고 액션생성자도 따로 만들어야 되서 코드가 길어진다
+// 액션 생성자만 따로 만들고 ReturnType 을 이용해 인터페이스를 사용하지 않는다
+//typesafe-actions 를 안쓰고 작성하면 작성해야하는 코드의 양이 늘어난다.
 export interface GetProductsRequestAction {
-  type: typeof types.GET_PRODUCTS_REQUEST
+  type: typeof types.GET_PRODUCTS_REQUEST;
 }
 export interface GetProductsSuccessAction {
-  type: typeof types.GET_PRODUCTS_SUCCESS
-  payload: Product[]
+  type: typeof types.GET_PRODUCTS_SUCCESS;
+  payload: Product[];
 }
 export interface GetProductsFailureAction {
-  type: typeof types.GET_PRODUCTS_FAILURE
-  payload: AxiosError
+  type: typeof types.GET_PRODUCTS_FAILURE;
+  payload: AxiosError;
 }
 
-export const getProductsRequest = ():GetProductsRequestAction=>{
-  return{
-    type:types.GET_PRODUCTS_REQUEST
-  }
-}
-export const getProductsSuccess = (products:Product[]):GetProductsSuccessAction=>{
-  return{
-    type:types.GET_PRODUCTS_SUCCESS,
-    payload:products
-  }
-}
-export const getProductsFailure = (err:AxiosError):GetProductsFailureAction=>{
-  return{
-    type:types.GET_PRODUCTS_FAILURE,
-    payload:err,
-  }
-}
-// 엑션의 타입을 인터페이스로 정의하고 액션생성자도 따로 만들어야 되서 코드가 길어진다
-export const addProductRequest = ()=>{
+export const getProductsRequest = (): GetProductsRequestAction => {
   return {
-    type:types.ADD_PRODUCT_REQUEST
-  }as const
-}
-export const addProductSuccess = (product:Product)=>{
+    type: types.GET_PRODUCTS_REQUEST,
+  };
+};
+export const getProductsSuccess = (
+  products: Product[]
+): GetProductsSuccessAction => {
+  return {
+    type: types.GET_PRODUCTS_SUCCESS,
+    payload: products,
+  };
+};
+export const getProductsFailure = (
+  err: AxiosError
+): GetProductsFailureAction => {
+  return {
+    type: types.GET_PRODUCTS_FAILURE,
+    payload: err,
+  };
+};
+export const addProductRequest = () => {
+  return {
+    type: types.ADD_PRODUCT_REQUEST,
+  } as const;
+};
+export const addProductSuccess = (product: Product) => {
   return <const>{
-    type:types.ADD_PRODUCT_SUCCESS,
-    payload : product
-  }
-}
-export const addProductFailure = (err:AxiosError)=>{
+    type: types.ADD_PRODUCT_SUCCESS,
+    payload: product,
+  };
+};
+export const addProductFailure = (err: AxiosError) => {
   return <const>{
-    type:types.ADD_PRODUCT_FAILURE,
-    payload:err
-  }
-}
+    type: types.ADD_PRODUCT_FAILURE,
+    payload: err,
+  };
+};
 
-export const willDeleteProductRequest = ()=>{
+export const willDeleteProductRequest = () => {
   return <const>{
-    type:types.WILL_DELETE_PRODUCT_REQUEST
-  }
-}
-export const willDeleteProductSuccess = ()=>{
+    type: types.WILL_DELETE_PRODUCT_REQUEST,
+  };
+};
+export const willDeleteProductSuccess = () => {
   return <const>{
-    type:types.WILL_DELETE_PRODUCT_SUCCESS,
-  }
-}
-export const willDeleteProductFailure = (err:AxiosError)=>{
+    type: types.WILL_DELETE_PRODUCT_SUCCESS,
+  };
+};
+export const willDeleteProductFailure = (err: AxiosError) => {
   return <const>{
-    type:types.WILL_DELETE_PRODUCT_FAILURE,
-    payload:err
-  }
-}
-// 액션 생성자만 따로 만들고 ReturnType 을 이용해 인터페이스를 사용하지 않는다
+    type: types.WILL_DELETE_PRODUCT_FAILURE,
+    payload: err,
+  };
+};
 
-export const deleteProductRequest = ()=>{
+export const deleteProductRequest = () => {
   return <const>{
-    type:types.DELETE_PRODUCT_REQUEST
-  }
-}
-export const deleteProductSuccess = ()=>{
+    type: types.DELETE_PRODUCT_REQUEST,
+  };
+};
+export const deleteProductSuccess = () => {
   return <const>{
-    type:types.DELETE_PRODUCT_SUCCESS,
-  }
-}
-export const deleteProductFailure = (err:AxiosError)=>{
+    type: types.DELETE_PRODUCT_SUCCESS,
+  };
+};
+export const deleteProductFailure = (err: AxiosError) => {
   return <const>{
-    type:types.DELETE_PRODUCT_FAILURE,
-    payload:err
-  }
-}
+    type: types.DELETE_PRODUCT_FAILURE,
+    payload: err,
+  };
+};
 
-export const addReviewRequest = ()=>{
+export const addReviewRequest = () => {
   return <const>{
-    type:types.ADD_REVIEW_REQUEST
-  }
-}
-export const addReviewSuccess = (review:Review)=>{
+    type: types.ADD_REVIEW_REQUEST,
+  };
+};
+export const addReviewSuccess = (review: Review) => {
   return <const>{
-    type:types.ADD_REVIEW_SUCCESS,
-    payload:review
-  }
-}
-export const addReviewFailure = (err:AxiosError)=>{
+    type: types.ADD_REVIEW_SUCCESS,
+    payload: review,
+  };
+};
+export const addReviewFailure = (err: AxiosError) => {
   return <const>{
-    type:types.ADD_REVIEW_FAILURE,
-    payload:err
-  }
-}
+    type: types.ADD_REVIEW_FAILURE,
+    payload: err,
+  };
+};
 
-export const addQuestionRequest = ()=>{
+export const addQuestionRequest = () => {
   return <const>{
-    type:types.ADD_QUESTION_REQUEST
-  }
-}
-export const addQuestionSuccess = (qna:Qna)=>{
+    type: types.ADD_QUESTION_REQUEST,
+  };
+};
+export const addQuestionSuccess = (qna: Qna) => {
   return <const>{
-    type:types.ADD_QUESTION_SUCCESS,
-    payload:qna
-  }
-}
-export const addQuestionFailure = (err:AxiosError)=>{
+    type: types.ADD_QUESTION_SUCCESS,
+    payload: qna,
+  };
+};
+export const addQuestionFailure = (err: AxiosError) => {
   return <const>{
-    type:types.ADD_QUESTION_FAILURE,
-    payload:err
-  }
-}
-export const addAnswerRequest = ()=>{
+    type: types.ADD_QUESTION_FAILURE,
+    payload: err,
+  };
+};
+export const addAnswerRequest = () => {
   return <const>{
-    type:types.ADD_ANSWER_REQUEST
-  }
-}
-export const addAnswerSuccess = (qna:Qna)=>{
+    type: types.ADD_ANSWER_REQUEST,
+  };
+};
+export const addAnswerSuccess = (qna: Qna) => {
   return <const>{
-    type:types.ADD_ANSWER_SUCCESS,
-    payload:qna
-  }
-}
-export const addAnswerFailure = (err:AxiosError)=>{
+    type: types.ADD_ANSWER_SUCCESS,
+    payload: qna,
+  };
+};
+export const addAnswerFailure = (err: AxiosError) => {
   return <const>{
-    type:types.ADD_ANSWER_FAILURE,
-    payload:err
-  }
-}
+    type: types.ADD_ANSWER_FAILURE,
+    payload: err,
+  };
+};
 
-export const getPrdQuestionListRequest = ()=>{
+export const getPrdQuestionListRequest = () => {
   return <const>{
-    type:types.GET_PRD_QUESTIONS_REQUEST
-  }
-}
-export const getPrdQuestionListSuccess = ({qnaList, productId}:{qnaList:Qna[], productId:string})=>{
+    type: types.GET_PRD_QUESTIONS_REQUEST,
+  };
+};
+export const getPrdQuestionListSuccess = ({
+  qnaList,
+  productId,
+}: {
+  qnaList: Qna[];
+  productId: string;
+}) => {
   return <const>{
-    type:types.GET_PRD_QUESTIONS_SUCCESS,
-    payload:{qnaList, productId}
-  }
-}
-export const getPrdQuestionListFailure = (err:AxiosError)=>{
+    type: types.GET_PRD_QUESTIONS_SUCCESS,
+    payload: { qnaList, productId },
+  };
+};
+export const getPrdQuestionListFailure = (err: AxiosError) => {
   return <const>{
-    type:types.GET_PRD_QUESTIONS_FAILURE,
-    payload:err
-  }
-}
+    type: types.GET_PRD_QUESTIONS_FAILURE,
+    payload: err,
+  };
+};
 
-export const addImageRequest = ()=>{
+export const addImageRequest = () => {
   return <const>{
-    type:types.ADD_IMAGE_REQUEST
-  }
-}
-export const addImageSuccess = (imagePath:{url:string,idx:string}[])=>{
+    type: types.ADD_IMAGE_REQUEST,
+  };
+};
+export const addImageSuccess = (imagePath: { url: string; idx: string }[]) => {
   return <const>{
-    type:types.ADD_IMAGE_SUCCESS,
-    payload:imagePath
-  }
-}
-export const addImageFailure = (err:AxiosError)=>{
+    type: types.ADD_IMAGE_SUCCESS,
+    payload: imagePath,
+  };
+};
+export const addImageFailure = (err: AxiosError) => {
   return <const>{
-    type:types.ADD_IMAGE_FAILURE,
-    payload:err
-  }
-}
-export const editProductRequest = ()=>{
+    type: types.ADD_IMAGE_FAILURE,
+    payload: err,
+  };
+};
+export const editProductRequest = () => {
   return <const>{
-    type:types.EDIT_PRODUCT_REQUEST
-  }
-}
-export const editProductSuccess = (product:Product)=>{
+    type: types.EDIT_PRODUCT_REQUEST,
+  };
+};
+export const editProductSuccess = (product: Product) => {
   return <const>{
-    type:types.EDIT_PRODUCT_SUCCESS,
-    payload:product
-  }
-}
-export const editProductFailure = (err:AxiosError)=>{
+    type: types.EDIT_PRODUCT_SUCCESS,
+    payload: product,
+  };
+};
+export const editProductFailure = (err: AxiosError) => {
   return <const>{
-    type:types.EDIT_PRODUCT_FAILURE,
-    payload:err
-  }
-}
+    type: types.EDIT_PRODUCT_FAILURE,
+    payload: err,
+  };
+};
 
 export type GetProductsAction =
   | GetProductsRequestAction
   | GetProductsSuccessAction
-  | GetProductsFailureAction
+  | GetProductsFailureAction;
 
 export type AddProductAction =
   | ReturnType<typeof addProductRequest>
   | ReturnType<typeof addProductSuccess>
-  | ReturnType<typeof addProductFailure>
+  | ReturnType<typeof addProductFailure>;
 
-export type WillDeleteProductAction = 
+export type WillDeleteProductAction =
   | ReturnType<typeof willDeleteProductRequest>
   | ReturnType<typeof willDeleteProductSuccess>
-  | ReturnType<typeof willDeleteProductFailure>
+  | ReturnType<typeof willDeleteProductFailure>;
 
-  
-export type DeleteProductAction = 
-| ReturnType<typeof deleteProductRequest>
-| ReturnType<typeof deleteProductSuccess>
-| ReturnType<typeof deleteProductFailure>
+export type DeleteProductAction =
+  | ReturnType<typeof deleteProductRequest>
+  | ReturnType<typeof deleteProductSuccess>
+  | ReturnType<typeof deleteProductFailure>;
 
-export type AddReviewAction = 
-| ReturnType<typeof addReviewRequest>
-| ReturnType<typeof addReviewSuccess>
-| ReturnType<typeof addReviewFailure>
+export type AddReviewAction =
+  | ReturnType<typeof addReviewRequest>
+  | ReturnType<typeof addReviewSuccess>
+  | ReturnType<typeof addReviewFailure>;
 
-export type AddQuetionAction = 
-| ReturnType<typeof addQuestionRequest>
-| ReturnType<typeof addQuestionSuccess>
-| ReturnType<typeof addQuestionFailure>
+export type AddQuetionAction =
+  | ReturnType<typeof addQuestionRequest>
+  | ReturnType<typeof addQuestionSuccess>
+  | ReturnType<typeof addQuestionFailure>;
 
-export type AddAnswerAction = 
-| ReturnType<typeof addAnswerRequest>
-| ReturnType<typeof addAnswerSuccess>
-| ReturnType<typeof addAnswerFailure>
+export type AddAnswerAction =
+  | ReturnType<typeof addAnswerRequest>
+  | ReturnType<typeof addAnswerSuccess>
+  | ReturnType<typeof addAnswerFailure>;
 
-export type GetPrdQuestionListAction = 
-| ReturnType<typeof getPrdQuestionListRequest>
-| ReturnType<typeof getPrdQuestionListSuccess>
-| ReturnType<typeof getPrdQuestionListFailure>
+export type GetPrdQuestionListAction =
+  | ReturnType<typeof getPrdQuestionListRequest>
+  | ReturnType<typeof getPrdQuestionListSuccess>
+  | ReturnType<typeof getPrdQuestionListFailure>;
 
-export type AddImageAction = 
-| ReturnType<typeof addImageRequest>
-| ReturnType<typeof addImageSuccess>
-| ReturnType<typeof addImageFailure>
+export type AddImageAction =
+  | ReturnType<typeof addImageRequest>
+  | ReturnType<typeof addImageSuccess>
+  | ReturnType<typeof addImageFailure>;
 
-export type EditProductAction = 
-| ReturnType<typeof editProductRequest>
-| ReturnType<typeof editProductSuccess>
-| ReturnType<typeof editProductFailure>
+export type EditProductAction =
+  | ReturnType<typeof editProductRequest>
+  | ReturnType<typeof editProductSuccess>
+  | ReturnType<typeof editProductFailure>;
 
+type ProductAction =
+  | GetProductsAction
+  | AddProductAction
+  | WillDeleteProductAction
+  | DeleteProductAction
+  | AddReviewAction
+  | AddQuetionAction
+  | AddAnswerAction
+  | GetPrdQuestionListAction
+  | AddImageAction
+  | EditProductAction;
 
-
-type ProductAction = 
-  GetProductsAction
-  |AddProductAction
-  |WillDeleteProductAction
-  |DeleteProductAction
-  |AddReviewAction
-  |AddQuetionAction
-  |AddAnswerAction
-  |GetPrdQuestionListAction
-  |AddImageAction
-  |EditProductAction
-  
-export default ProductAction 
+export default ProductAction;
