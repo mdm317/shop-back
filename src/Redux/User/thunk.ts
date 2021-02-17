@@ -21,6 +21,7 @@ import { User } from "../../Model/db";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { RouteComponentProps } from "react-router-dom";
+import baseurl from "../../baseurl";
 const dbUrl = process.env.REACT_APP_DBURL;
 
 export interface LoginData {
@@ -113,7 +114,7 @@ export function logIn(
       const response = await logInAPI(param);
 
       dispatch(success(response.data));
-      props.history.push("/");
+      props.history.push(`${baseurl}/`);
     } catch (e) {
       if (e.response && e.response.data && e.response.data.error) {
         toast.error(e.response.data.error.message);
@@ -132,7 +133,7 @@ export function logOut(
     try {
       await logOutAPI();
       dispatch(success(null));
-      props.history.push("/");
+      props.history.push(`${baseurl}/`);
     } catch (e) {
       console.dir(e);
       dispatch(failure(e));
@@ -149,14 +150,14 @@ export function signUp(
     try {
       const response = await sighUpAPI(param);
       dispatch(success(response.data));
-      props.history.push("/login");
+      props.history.push(`${baseurl}/login`);
       toast.success("회원가입성공!  로그인 해주세요");
     } catch (e) {
       dispatch(failure(e));
     }
   };
 }
-//직접 history 를 넘겼을때 타입에러의 이유는????
+//직접 history 를 넘겼을`${baseurl}` 타입에러의 이유는????
 export function checkId(
   id: string
 ): ThunkAction<void, RootState, null, UserAction> {
@@ -245,7 +246,7 @@ export function addOrder(
       const response = await addOrderAPI(param);
       dispatch(success(response.data));
       toast.success("주문 성공");
-      props.history.push("/");
+      props.history.push(`${baseurl}/`);
       dispatch(emptyCart());
     } catch (e) {
       console.dir(e);
@@ -253,7 +254,7 @@ export function addOrder(
         if (e.response.data) {
           toast.error(e.response.data);
           setTimeout(() => {
-            props.history.push("/");
+            props.history.push(`${baseurl}/`);
           }, 1000);
         }
       } else {

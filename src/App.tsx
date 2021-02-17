@@ -22,6 +22,8 @@ import AdminPage from "./Routes/AdminPage";
 import { useSelector } from "react-redux";
 import { RootState } from "./Redux/index";
 import RouterIf from "./Components/RouterIf";
+import baseurl from "./baseurl";
+import RedirectBaseurl from "./Components/RedirectBaseurl";
 
 export default function App() {
   const user = useSelector((state: RootState) => state.user.user);
@@ -34,44 +36,45 @@ export default function App() {
           <Layout>
             <Switch>
               <RouterIf
-                path="/orderSheet"
+                path={`${baseurl}/orderSheet`}
                 component={OrderSheet}
                 isAuth={user ? true : false}
               />
               <RouterIf
-                path="/chargeCash"
+                path={`${baseurl}/chargeCash`}
                 component={ChargeCash}
                 isAuth={user ? true : false}
               />
               <RouterIf
-                path="/orderList"
+                path={`${baseurl}/orderList`}
                 component={OrderList}
                 isAuth={user ? true : false}
               />
               <RouterIf
-                path="/addproduct"
+                path={`${baseurl}/addproduct`}
                 component={AddProduct}
                 isAuth={user?.isAdmin ? true : false}
               />
               <RouterIf
-                path="/answerform/:qnaId"
+                path={`${baseurl}/answerform/:qnaId`}
                 component={AnswerForm}
                 isAuth={user?.isAdmin ? true : false}
               />
               <RouterIf
-                path="/adminPage"
+                path={`${baseurl}/adminPage`}
                 component={AdminPage}
                 isAuth={user?.isAdmin ? true : false}
               />
-              <Route path="/" exact component={Home} />
-              <Route path="/login" component={Login} />
-              <Route path="/signup" component={SignUp} />
+              <Route path={`${baseurl}/`} exact component={Home} />
+              <Route path={`${baseurl}/login`} component={Login} />
+              <Route path={`${baseurl}/signup`} component={SignUp} />
               <Route
-                path="/productDetail/:productIndex"
+                path={`${baseurl}/productDetail/:productIndex`}
                 component={ProductDetail}
               />
-              <Route path="/qnaform/:productId" component={QnaForm} />
-              <Redirect path="*" to="/" />
+              <Route path={`${baseurl}/qnaform/:productId`} component={QnaForm} />
+              <Route path="*" component={RedirectBaseurl} />
+              {/* <Redirect path="*" to={`${baseurl}/`} /> */}
             </Switch>
           </Layout>
         </BrowserRouter>

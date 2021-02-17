@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Input from "../Input";
-import { findAddress } from "../../API/KaKaoAddressApi";
+import { findAddress } from '../../Api/KaKaoAddressApi';
 import { AddressFormProp } from "../../Routes/OrderSheet";
 
 const Container = styled.div`
