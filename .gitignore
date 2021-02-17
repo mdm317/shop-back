@@ -10,8 +10,6 @@
 pem
 .pem
 
-# production
-/build
 
 # misc
 env
