@@ -6,6 +6,7 @@ import { Qna } from "../../Model/db";
 import { toast } from "react-toastify";
 import QnaLine from "./QnaLine";
 import { getPrdQueList } from "../../Redux/Product/thunk";
+import baseurl from "../../baseurl";
 
 const QnaBox = styled.div``;
 const QnaHeader = styled.div`
@@ -72,7 +73,7 @@ export default function QnaContainer({
     }
     if (productId) {
       const a = window.open(
-        `/qnaform/${productId}`,
+        `${baseurl}/qnaform/${productId}`,
         "PopupWin",
         "width=500,height=600"
       );
