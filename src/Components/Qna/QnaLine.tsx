@@ -7,6 +7,7 @@ import { useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { getPrdQueList, getProductDetail } from "../../Redux/Product/thunk";
 import { getAllQuestion } from "../../Redux/Admin/thunk";
+import baseurl from "../../baseurl";
 
 const QuestionItem = styled.div`
   display: flex;
@@ -65,7 +66,7 @@ export default function QnaLine({
   newUserId += "****";
   const clickAddAnswer = () => {
     const popup = window.open(
-      `/answerform/${qna.id}`,
+      `${baseurl}/answerform/${qna.id}`,
       "PopupWin",
       "width=500,height=650"
     );
